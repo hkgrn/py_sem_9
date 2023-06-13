@@ -3,7 +3,22 @@
 
 
 import pandas as pd
-import matplotlib.pyplot as plt
+import random
 
+lst = ['robot'] * 10
+lst += ['human'] * 10
+random.shuffle(lst)
 
-data = pd.read_csv('sample_data/california_housing_train.csv')
+data = pd.DataFrame({'WhoAmI': lst})
+
+print('Исходные данные:')
+print(data.head(n=len(data)))
+print()
+
+data.loc[data["WhoAmI"] == 'human', 'humans'] = '1'
+data.loc[data["WhoAmI"] == 'robot', 'robots'] = '1'
+data.loc[data["WhoAmI"] == 'robot', 'humans'] = '0'
+data.loc[data["WhoAmI"] == 'human', 'robots'] = '0'
+
+print('ONE HOT вид:')
+print(data.head(n=len(data)))
